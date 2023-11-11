@@ -1,0 +1,68 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Balloon</title>
+    <style>
+        .balloon {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            border-radius: 50%;
+            transition: 0.3s ease-in-out;
+            cursor: pointer;
+        }
+
+        .balloon:hover {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="balloon" class="balloon" onclick="expandBalloon()"></div>
+
+    <script>
+        let balloon = document.getElementById('balloon');
+        let balloonSize = 200;
+        let balloonColorOrder = ['red', 'green', 'blue'];
+        let balloonColorIndex = 0;
+
+        function expandBalloon() {
+            if (balloonSize < 420) {
+                balloonSize += 10;
+            } else {
+                balloonSize = 200; // Reset size if it exceeds 420px
+            }
+
+            balloonColorIndex = (balloonColorIndex + 1) % 3; // Cycle through the colors
+
+            updateBalloon();
+        }
+
+        function shrinkBalloon() {
+            if (balloonSize > 200) {
+                balloonSize -= 5;
+            } else {
+                balloonSize = 200; // Reset size if it goes below 200px
+            }
+
+            balloonColorIndex = (balloonColorIndex + 2) % 3; // Cycle through the colors in reverse order
+
+            updateBalloon();
+        }
+
+        function updateBalloon() {
+            balloon.style.width = `${balloonSize}px`;
+            balloon.style.height = `${balloonSize}px`;
+            balloon.style.backgroundColor = balloonColorOrder[balloonColorIndex];
+        }
+
+        balloon.addEventListener('mouseleave', shrinkBalloon);
+    </script>
+
+</body>
+</html>
+
+ 
